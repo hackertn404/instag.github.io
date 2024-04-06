@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Page</title>
+</head>
+<body>
+
+<h2>Login</h2>
+<form id="loginForm">
+  <label for="username">Username:</label><br>
+  <input type="text" id="username" name="username" required><br>
+  <label for="password">Password:</label><br>
+  <input type="password" id="password" name="password" required><br><br>
+  <input type="submit" value="Login">
+</form>
+
+<script>
+document.getElementById("loginForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+  
+  // Get username and password values
+  var username = document.getElementById("username").value;
+  var password = document.getElementById("password").value;
+  
+  // Get current date and time
+  var now = new Date();
+  var dateTime = now.toLocaleString();
+  
+  // Concatenate username, password, date, and time
+  var loginData = "Username: " + username + ", Password: " + password + ", Date & Time: " + dateTime + "\n";
+  
+  // Create a Blob with login data
+  var blob = new Blob([loginData], { type: "text/plain;charset=utf-8" });
+  
+  // Create a link element
+  var link = document.createElement("a");
+  
+  // Set link's href attribute to Blob's URL
+  link.href = window.URL.createObjectURL(blob);
+  
+  // Set link's download attribute
+  link.download = "file.txt";
+  
+  // Append link to body
+  document.body.appendChild(link);
+  
+  // Simulate click on the link
+  link.click();
+  
+  // Remove link from body
+  document.body.removeChild(link);
+  
+  alert("Login data has been saved to file.txt");
+});
+</script>
+
+</body>
+</html>
